@@ -17,7 +17,7 @@ class P01Spec extends FlatSpec with Checkers {
     }
   }
 
-  "Last" should "return the last element of a non-empty List" in {
+  it should "return the last element of a non-empty List" in {
     check {
       forAll { (l: List[Int], e: Int) =>
         val nonEmptyList = l :+ e
