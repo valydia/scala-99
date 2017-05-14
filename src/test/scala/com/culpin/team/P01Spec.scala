@@ -1,14 +1,13 @@
 package com.culpin.team
 
-import org.scalacheck.Prop
-import org.scalacheck.Arbitrary._
-import org.scalatest.{ Matchers, FlatSpec }
+import org.scalacheck.Prop.forAll
+import org.scalatest.prop.Checkers
+import org.scalatest.FlatSpec
 
-class P01Spec extends FlatSpec with Matchers {
+class P01Spec extends FlatSpec with Checkers {
 
   def implementations[T]: List[List[T] => T] =
     List(P01.lastBuiltIn, P01.lastRecursive)
-
 
   "Last" should "throw a NoSuchElementException for empty list" in {
     implementations[Int].foreach { last =>
@@ -19,10 +18,12 @@ class P01Spec extends FlatSpec with Matchers {
   }
 
   "Last" should "return the last element of a non-empty List" in {
-    Prop.forAll { (l: List[Int], e: Int) =>
-      val list = l :+ e
-      implementations[Int].forall { last =>
-        last(list) == e
+    check {
+      forAll { (l: List[Int], e: Int) =>
+        val nonEmptyList = l :+ e
+        implementations[Int].forall { last =>
+          last(nonEmptyList) == e
+        }
       }
     }
   }
