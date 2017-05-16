@@ -12,7 +12,6 @@ object P02 {
       list(penultimateIndex)
   }
 
-
   @tailrec
   def penultimate[T](list: List[T]): T = {
     list match {

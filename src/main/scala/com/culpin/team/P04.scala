@@ -18,8 +18,9 @@ object P04 {
   }
 
   def lengthFoldLeft[T](list: List[T]): Int = {
-    list.foldLeft(0) { case(acc, _) =>
-      acc + 1
+    list.foldLeft(0) {
+      case (acc, _) =>
+        acc + 1
     }
   }
 

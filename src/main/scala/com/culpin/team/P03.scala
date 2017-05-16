@@ -8,15 +8,14 @@ object P03 {
     list(k)
   }
 
-
   @tailrec
   def nthRec[T](k: Int, list: List[T]): T = {
-    if (list.isEmpty ||  k < 0)
+    if (list.isEmpty || k < 0)
       throw new IndexOutOfBoundsException(k.toString)
     else {
       (k, list) match {
-        case (0, h :: tail) =>  h
-        case (n, head :: tail) =>  nthRec(n - 1, tail)
+        case (0, h :: tail) => h
+        case (n, head :: tail) => nthRec(n - 1, tail)
       }
     }
   }

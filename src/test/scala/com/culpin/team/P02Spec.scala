@@ -7,7 +7,7 @@ import org.scalatest.prop.Checkers
 import org.scalatest.{ FlatSpec }
 import org.scalacheck.Prop._
 
-class P02Spec extends FlatSpec  with Checkers {
+class P02Spec extends FlatSpec with Checkers {
 
   val tinyListGen =
     for {
@@ -15,16 +15,14 @@ class P02Spec extends FlatSpec  with Checkers {
       list <- Gen.listOfN(size, arbitrary[Int])
     } yield list
 
-
   def implementations[T]: List[List[T] => T] =
     List(P02.penultimateBuiltIn, P02.penultimate)
-
 
   "Penultimate" should "throw a NoSuchElementException for a list with a size <= 1" in {
     check(
       forAll(tinyListGen) { tinyList: List[Int] =>
         implementations[Int].forall { penultimate =>
-          throws(classOf[NoSuchElementException]){
+          throws(classOf[NoSuchElementException]) {
             penultimate(tinyList)
           }
         }
@@ -42,6 +40,5 @@ class P02Spec extends FlatSpec  with Checkers {
       }
     }
   }
-
 
 }
