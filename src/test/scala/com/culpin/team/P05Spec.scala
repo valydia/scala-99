@@ -24,7 +24,7 @@ class P05Spec extends FlatSpec with Checkers with Matchers {
     }
   }
 
-  "Reverse" should "round trip" in {
+  it should "round trip" in {
     check(
       forAll { list: List[Int] =>
         implementations[Int].forall { reverse =>

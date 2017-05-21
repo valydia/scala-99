@@ -7,7 +7,6 @@ object P06 {
   def palindromeBuiltIn[T](list: List[T]): Boolean =
     list == list.reverse
 
-
   def palindromeRec[T](list: List[T]): Boolean = {
     @tailrec
     def loop(l: List[T]): Boolean = l match {
@@ -19,7 +18,5 @@ object P06 {
     }
     loop(list)
   }
-
-
 
 }

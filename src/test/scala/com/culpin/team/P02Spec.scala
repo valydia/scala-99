@@ -30,7 +30,7 @@ class P02Spec extends FlatSpec with Checkers {
     )
   }
 
-  "Penultimate" should "return the penultimate element of a list longer than 2" in {
+  it should "return the penultimate element of a list longer than 2" in {
     check {
       forAll { (l: List[Int], e: Int, f: Int) =>
         val nonEmptyList = l ++ List(e, f)
