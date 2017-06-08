@@ -14,6 +14,7 @@ object P03 {
       throw new IndexOutOfBoundsException(k.toString)
     else {
       (k, list) match {
+        case (_, Nil) => throw new IndexOutOfBoundsException(k.toString)
         case (0, h :: tail) => h
         case (n, head :: tail) => nthRec(n - 1, tail)
       }
