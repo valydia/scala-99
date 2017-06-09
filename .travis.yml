@@ -10,7 +10,7 @@ scala:
 jdk:
   - openjdk7
   - openjdk6
-  - openjdk8
+  - oraclejdk8
 
 cache:
   directories:
@@ -18,6 +18,6 @@ cache:
     - $HOME/.sbt/boot/scala-$TRAVIS_SCALA_VERSION
 
 script:
-  - sbt ++$TRAVIS_SCALA_VERSION test scripted
+  - sbt ++$TRAVIS_SCALA_VERSION test
   - find $HOME/.sbt -name "*.lock" | xargs rm
   - find $HOME/.ivy2 -name "ivydata-*.properties" | xargs rm
