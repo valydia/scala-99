@@ -1,22 +1,16 @@
 package com.culpin.team
 
+import com.culpin.team.generator.ListGenerator
 import org.scalacheck.Arbitrary.arbitrary
 import org.scalacheck.Gen
 import org.scalacheck.Prop.{ forAll, _ }
 import org.scalatest.prop.Checkers
 import org.scalatest.{ FlatSpec, Matchers }
 
-class P08Spec extends FlatSpec with Checkers with Matchers {
+class P08Spec extends FlatSpec with Checkers with Matchers with ListGenerator {
 
   def implementations[T]: List[List[T] => List[T]] =
     List(P08.compressRec, P08.compressFoldLeft)
-
-  def monoElementListGen[T](g: Gen[T]): Gen[(T, List[T])] = {
-    for {
-      size <- Gen.choose(1, 1000)
-      t <- g
-    } yield (t, List.fill(size)(t))
-  }
 
   def repeatedListGen[T](g: Gen[T]): Gen[(List[T], List[T])] = {
     for {

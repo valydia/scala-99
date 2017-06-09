@@ -15,10 +15,7 @@ class P06Spec extends FlatSpec with Checkers with Matchers {
     base <- Gen.listOf(g)
     middle <- Gen.option(g)
   } yield {
-    middle match {
-      case Some(t) => base ++ List(t) ++ base.reverse
-      case _ => base ++ base.reverse
-    }
+    base ++ middle.toList ++ base.reverse
   }
 
   "Palindrome" should "find out non-palindrome" in {
