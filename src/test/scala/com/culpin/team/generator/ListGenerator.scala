@@ -1,6 +1,10 @@
 package com.culpin.team.generator
 
 import org.scalacheck.Gen
+import org.scalatest.{Matchers, FlatSpec}
+import org.scalatest.prop.Checkers
+import org.scalacheck.Arbitrary.arbitrary
+import org.scalacheck.Prop.{ forAll, _ }
 
 trait ListGenerator {
 
@@ -11,4 +15,17 @@ trait ListGenerator {
     } yield t -> List.fill(size)(t)
   }
 
+}
+
+class ListGeneratorSpec extends FlatSpec with Checkers with Matchers with ListGenerator {
+
+  "monoElementListGen" should "generate list with same element" in {
+    check(
+      forAll(monoElementListGen(arbitrary[Int])) { tuple =>
+        val (e, list) = tuple
+        val set = list.toSet
+        set.size == 1 &&  set.head == e
+      }
+    )
+  }
 }
