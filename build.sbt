@@ -2,7 +2,7 @@ name := """scala-99"""
 
 version := "1.0"
 
-scalaVersion := "2.11.7"
+crossScalaVersions := Seq("2.12.0", "2.11.7", "2.10.5", "2.9.3")
 
 libraryDependencies ++= Seq(
   "org.scalatest" %% "scalatest" % "2.2.4" % "test",
