@@ -16,9 +16,9 @@ matrix:
   # scala 2.12 requires java 8
   exclude:
     - scala: 2.12.0
-      env: JDK=openjdk6
+      jdk: openjdk6
     - scala: 2.12.0
-      env: JDK=openjdk7
+      jdk: openjdk7
 
 cache:
   directories:
