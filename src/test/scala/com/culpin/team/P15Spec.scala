@@ -3,14 +3,14 @@ package com.culpin.team
 import com.culpin.team.generator.ListGenerator
 import org.scalacheck.Arbitrary.arbitrary
 import org.scalacheck.Gen
-import org.scalacheck.Prop.{forAll, _}
+import org.scalacheck.Prop.{ forAll, _ }
 import org.scalatest.prop.Checkers
-import org.scalatest.{FlatSpec, Matchers}
+import org.scalatest.{ FlatSpec, Matchers }
 
 class P15Spec extends FlatSpec with Checkers with Matchers with ListGenerator {
 
-  def implementations[T]: List[(Int,List[T]) => List[T]] =
-    List(P15.duplicateN)
+  def implementations[T]: List[(Int, List[T]) => List[T]] =
+    List(P15.duplicateN, P15.duplicateNRec)
 
   def repeatedListGen[T](g: Gen[T], monolistSize: Int): Gen[(List[T], List[T])] = {
     for {
@@ -19,7 +19,7 @@ class P15Spec extends FlatSpec with Checkers with Matchers with ListGenerator {
     } yield {
       monoListList.foldLeft((List.empty[T], List.empty[T])) {
         case ((expectedList, repeatedList), (elem, monoList)) =>
-           (monoList ++ expectedList, elem :: repeatedList)
+          (monoList ++ expectedList, elem :: repeatedList)
       }
     }
   }

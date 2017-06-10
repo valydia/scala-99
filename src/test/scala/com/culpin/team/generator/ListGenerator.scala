@@ -1,7 +1,7 @@
 package com.culpin.team.generator
 
 import org.scalacheck.Gen
-import org.scalatest.{Matchers, FlatSpec}
+import org.scalatest.{ Matchers, FlatSpec }
 import org.scalatest.prop.Checkers
 import org.scalacheck.Arbitrary.arbitrary
 import org.scalacheck.Prop.{ forAll, _ }
@@ -24,7 +24,7 @@ class ListGeneratorSpec extends FlatSpec with Checkers with Matchers with ListGe
       forAll(monoElementListGen(arbitrary[Int])) { tuple =>
         val (e, list) = tuple
         val set = list.toSet
-        set.size == 1 &&  set.head == e
+        set.size == 1 && set.head == e
       }
     )
   }

@@ -17,11 +17,11 @@ object P13 {
 
   def encodeDirectRec[T](list: List[T]): List[(Int, T)] = {
     @tailrec
-    def loop(acc: List[(Int,T)], l: List[T]): List[(Int, T)] = l match {
+    def loop(acc: List[(Int, T)], l: List[T]): List[(Int, T)] = l match {
       case Nil => acc.reverse
       case head :: tail =>
-        if(acc.isEmpty || acc.head._2 != head)
-          loop((1,head) :: acc, tail)
+        if (acc.isEmpty || acc.head._2 != head)
+          loop((1, head) :: acc, tail)
         else {
           val (c, e) :: t = acc
           loop((c + 1, e) :: t, tail)
