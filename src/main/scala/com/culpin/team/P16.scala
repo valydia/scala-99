@@ -13,7 +13,7 @@ object P16 {
       (l, index) match {
         case (Nil, _) => acc.reverse
         case (head :: tail, i) if (i + 1) % n == 0 => loop(index + 1, acc, tail)
-        case (head :: tail, i) => loop(index + 1, head ::acc, tail)
+        case (head :: tail, i) => loop(index + 1, head :: acc, tail)
       }
     }
     loop(0, Nil, list)
@@ -21,15 +21,14 @@ object P16 {
 
   def dropFoldLeft[T](n: Int, list: List[T]): List[T] = {
     val (result, _) =
-    list.foldLeft((List.empty[T], 0)) {
-      case ((acc, index), elem) =>
-        if ((index + 1) % n == 0)
-          (acc, index + 1)
-        else
-          (elem :: acc, index + 1)
-    }
+      list.foldLeft((List.empty[T], 0)) {
+        case ((acc, index), elem) =>
+          if ((index + 1) % n == 0)
+            (acc, index + 1)
+          else
+            (elem :: acc, index + 1)
+      }
     result.reverse
   }
-
 
 }

@@ -12,7 +12,7 @@ object P15 {
     @tailrec
     def loop(acc: List[T], l: List[T]): List[T] = l match {
       case Nil => acc.reverse
-      case head :: tail => loop( List.fill(n)(head) ++ acc, tail)
+      case head :: tail => loop(List.fill(n)(head) ++ acc, tail)
     }
 
     loop(Nil, list)

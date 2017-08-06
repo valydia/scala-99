@@ -3,16 +3,15 @@ package com.culpin.team
 import com.culpin.team.generator.ListGenerator
 import org.scalacheck.Arbitrary.arbitrary
 import org.scalacheck.Gen
-import org.scalacheck.Prop.{forAll, _}
+import org.scalacheck.Prop.{ forAll, _ }
 import org.scalatest.prop.Checkers
-import org.scalatest.{FlatSpec, Matchers}
+import org.scalatest.{ FlatSpec, Matchers }
 import org.scalacheck.Gen.listOfN
 
 class P16Spec extends FlatSpec with Checkers with Matchers with ListGenerator {
 
   def implementations[T]: List[(Int, List[T]) => List[T]] =
     List(P16.drop, P16.dropRec, P16.dropFoldLeft)
-
 
   def listOfSizeNandNPlus1Gen[T](g: Gen[T], n: Int): Gen[(List[T], List[T])] = {
     for {
@@ -25,16 +24,16 @@ class P16Spec extends FlatSpec with Checkers with Matchers with ListGenerator {
   def expectedAndInitialListGen[T](g: Gen[T], n: Int): Gen[(List[T], List[T])] = {
     for {
       size <- Gen.choose(1, 1000)
-      listOfSizeNandNPlus1Lists <- listOfN(size,listOfSizeNandNPlus1Gen(g, n))
+      listOfSizeNandNPlus1Lists <- listOfN(size, listOfSizeNandNPlus1Gen(g, n))
       sizeSmallerThanN <- Gen.choose(0, Math.max(0, n - 1))
       listSmallerThanN <- listOfN(sizeSmallerThanN, g)
     } yield {
-      val (exectedList, initialList) =
-      listOfSizeNandNPlus1Lists.foldLeft((List.empty[T], List.empty[T])) {
-        case ((expectedList, initialList), (listOfN,listofNPlus1)) =>
-          (listOfN ++ expectedList, listofNPlus1 ++ initialList)
-      }
-      (exectedList ++ listSmallerThanN, initialList ++ listSmallerThanN)
+      val (expectedList, initialList) =
+        listOfSizeNandNPlus1Lists.foldLeft((List.empty[T], List.empty[T])) {
+          case ((expectedListAcc, initialListAcc), (listOfN, listofNPlus1)) =>
+            (listOfN ++ expectedListAcc, listofNPlus1 ++ initialListAcc)
+        }
+      (expectedList ++ listSmallerThanN, initialList ++ listSmallerThanN)
     }
   }
 
@@ -44,7 +43,7 @@ class P16Spec extends FlatSpec with Checkers with Matchers with ListGenerator {
       forAll(Gen.choose(1, 1000)) { n =>
         forAll(expectedAndInitialListGen(arbitrary[Int], n)) {
           case (expectedList, initialList) =>
-              implementations[Int].forall { dropN =>
+            implementations[Int].forall { dropN =>
               dropN(n, initialList) == expectedList
             }
         }
